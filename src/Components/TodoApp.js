@@ -31,8 +31,13 @@ export default function TodoApp() {
           <Typography color="inherit">TODOS WITH REACT HOOKS</Typography>
         </Toolbar>
       </AppBar>
-      <TodoForm addTodo={addTodo} />
-      <TodoList todos={todos} />
+      {/* Material UI Grid similar to BootStrap Grid Look up for more info */}
+      <Grid container justify="center" style={{ marginTop: "2rem" }}>
+        <Grid item xs={11} md={8} lg={4}>
+          <TodoForm addTodo={addTodo} />
+          <TodoList todos={todos} />
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
