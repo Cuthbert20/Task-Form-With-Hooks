@@ -15,6 +15,9 @@ export default function TodoApp() {
     { id: 4, task: "Workout", completed: false }
   ];
   const [todos, setTodos] = useState(initialTodos);
+  const addTodo = newTodoText => {
+    setTodos([...todos, { id: 5, task: newTodoText, completed: false }]);
+  };
   const paperStyle = {
     padding: 0,
     margin: 0,
@@ -28,7 +31,7 @@ export default function TodoApp() {
           <Typography color="inherit">TODOS WITH REACT HOOKS</Typography>
         </Toolbar>
       </AppBar>
-      <TodoForm />
+      <TodoForm addTodo={addTodo} />
       <TodoList todos={todos} />
     </Paper>
   );
