@@ -7,10 +7,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
-function Todo({ task, completed }) {
+function Todo({ id, task, completed, removeTodo, toggleTodo }) {
   return (
     <ListItem>
-      <Checkbox tabIndex={-1} checked={completed} />
+      <Checkbox
+        onClick={() => toggleTodo(id)}
+        tabIndex={-1}
+        checked={completed}
+      />
       {/* adding textDecoration for line through if completed using ternary operator */}
       <ListItemText
         style={{ textDecoration: completed ? "line-through" : "none" }}
@@ -19,7 +23,7 @@ function Todo({ task, completed }) {
       </ListItemText>
       <ListItemSecondaryAction>
         {/* these Material-UI buttons are SVG's so we are adding an aria-label for screen readers */}
-        <IconButton aria-label="Delete">
+        <IconButton aria-label="Delete" onClick={() => removeTodo(id)}>
           <DeleteIcon />
         </IconButton>
         <IconButton aria-label="Edit">
