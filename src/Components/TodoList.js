@@ -15,10 +15,11 @@ function TodoList(props) {
               //JSX Fragment<>
               <React.Fragment key={index}>
                 <Todo
-                  id={todo.id}
+                  // id={todo.id}
+                  // task={todo.task}
+                  // completed={todo.completed}
+                  {...todo}
                   removeTodo={props.removeTodo}
-                  task={todo.task}
-                  completed={todo.completed}
                   key={index}
                   toggleTodo={props.toggleTodo}
                   editTodo={props.editTodo}

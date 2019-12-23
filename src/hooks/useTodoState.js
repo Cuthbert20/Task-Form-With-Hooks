@@ -1,7 +1,9 @@
-import { useState } from "react";
+//custom hook is using useLocalStorageState custom hook
+import useLocalStorageState from "./useLocalStorageState";
+
 import uuid from "uuid/v4";
 export default initialTodos => {
-  const [todos, setTodos] = useState(initialTodos);
+  const [todos, setTodos] = useLocalStorageState("todos", initialTodos);
   //instead of returning an array
   //useTodoState Hook will return an object.
   return {

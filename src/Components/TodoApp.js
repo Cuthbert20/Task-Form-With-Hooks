@@ -10,17 +10,18 @@ import Grid from "@material-ui/core/Grid";
 //using uuid to add new id to every new todo see line 21 look at the react chrome dev tools to see the long unique id that is assigned.
 
 export default function TodoApp() {
-  const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
+  const initialTodos = [{ id: 1, task: "pet Dog", completed: true }];
+  // const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
   const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(
     initialTodos
   );
 
-  useEffect(() => {
-    //sync todos to local storage so we can save new Todos
-    //we have to save the todos as a string, if we just saved them as an object we would get an error.
-    window.localStorage.setItem("todos", JSON.stringify(todos));
-    //only monitoring the piece of data todos ie I know it sthe only piece of state on this component but, its good practice.
-  }, [todos]);
+  // useEffect(() => {
+  //   //sync todos to local storage so we can save new Todos
+  //   //we have to save the todos as a string, if we just saved them as an object we would get an error.
+  //   window.localStorage.setItem("todos", JSON.stringify(todos));
+  //   //only monitoring the piece of data todos ie I know it sthe only piece of state on this component but, its good practice.
+  // }, [todos]);
   const paperStyle = {
     padding: 0,
     margin: 0,
