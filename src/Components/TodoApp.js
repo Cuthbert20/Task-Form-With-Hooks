@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import useTodoState from "../hooks/useTodoState";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
 import Typography from "@material-ui/core/Typography";
@@ -7,44 +8,26 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 //using uuid to add new id to every new todo see line 21 look at the react chrome dev tools to see the long unique id that is assigned.
-import uuid from "uuid/v4";
 
 export default function TodoApp() {
-  const initialTodos = [
-    { id: 1, task: "Learn React Native", completed: false },
-    { id: 2, task: "Read wtih Ryker for 30 Mins", completed: false },
-    { id: 3, task: "Learn React Hooks", completed: true },
-    { id: 4, task: "Workout", completed: false }
-  ];
-  const [todos, setTodos] = useState(initialTodos);
-  const addTodo = newTodoText => {
-    setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-  };
-  const removeTodo = todoId => {
-    //filter out removed todo
-    const updatedTodos = todos.filter(todo => todo.id !== todoId);
-    //call setTodos with new todos array
-    setTodos(updatedTodos);
-  };
-  const toggleTodo = todoId => {
-    //map over todos
-    const updatedTodo = todos.map(todo =>
-      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-    );
-    setTodos(updatedTodo);
-  };
-  const editTodo = (todoId, newTask) => {
-    const updateTodo = todos.map(todo =>
-      todo.id === todoId ? { ...todo, task: newTask } : todo
-    );
-    setTodos(updateTodo);
-  };
+  const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
+  const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(
+    initialTodos
+  );
+
+  useEffect(() => {
+    //sync todos to local storage so we can save new Todos
+    //we have to save the todos as a string, if we just saved them as an object we would get an error.
+    window.localStorage.setItem("todos", JSON.stringify(todos));
+    //only monitoring the piece of data todos ie I know it sthe only piece of state on this component but, its good practice.
+  }, [todos]);
   const paperStyle = {
     padding: 0,
     margin: 0,
     height: "100vh",
     backgroundColor: "#fafafa"
   };
+
   return (
     <Paper style={paperStyle} elevation={0}>
       <AppBar color="primary" position="static" style={{ height: "64px" }}>
