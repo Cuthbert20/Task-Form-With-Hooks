@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useTodoState from "../hooks/useTodoState";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
+import useLocalStorageState from "../hooks/useLocalStorageState";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import AppBar from "@material-ui/core/AppBar";
@@ -15,7 +16,8 @@ export default function TodoApp() {
   const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(
     initialTodos
   );
-
+  const [mood, setMood] = useLocalStorageState("mood", "happy");
+  console.log(mood);
   // useEffect(() => {
   //   //sync todos to local storage so we can save new Todos
   //   //we have to save the todos as a string, if we just saved them as an object we would get an error.
@@ -46,6 +48,9 @@ export default function TodoApp() {
             editTodo={editTodo}
             todos={todos}
           />
+          <button onClick={() => setMood("Angry")}>Click to get Angry</button>
+          <button onClick={() => setMood("Happy")}>Click to get Happy</button>
+          <h5>{mood}</h5>
         </Grid>
       </Grid>
     </Paper>
